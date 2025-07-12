@@ -1,9 +1,11 @@
-using System;
-
-class Program
+namespace JournalApp
 {
-    static void Main(string[] args)
+    class Program
     {
-        Console.WriteLine("Hello World! This is the Journal Project.");
+        static void Main()
+        {
+            // Intentionally left blank for the “structure only” stage.
+            // Interactive code will be added later.
+        }
     }
 }
