@@ -1,27 +1,51 @@
 using System;
+using System.Collections.Generic;
 
 class Program
 {
     static void Main()
     {
-        int sum = 0;
-        int max = 0;
-        int count = 0;
+        // Create an empty list to store the numbers
+        List<int> numbers = new List<int>();
 
-        for (int i = 0; i <= 50; i++)
+        // Ask the user for numbers
+        Console.WriteLine("Enter numbers (type 0 to stop):");
+
+        int number = -1; // Start with a number that is not 0
+        while (number != 0)
         {
-            sum += i;
+            Console.Write("Enter a number: ");
+            number = int.Parse(Console.ReadLine());
 
-            if (i > max)
-                max = i;
-
-            count++;
+            if (number != 0)
+            {
+                numbers.Add(number);
+            }
         }
 
-        double average = (double)sum / count;
+        // Calculate the sum
+        int sum = 0;
+        foreach (int num in numbers)
+        {
+            sum += num;
+        }
 
-        Console.WriteLine("Sum: " + sum);
-        Console.WriteLine("Average: " + average);
-        Console.WriteLine("Maximum: " + max);
+        // Calculate the average
+        float average = (float)sum / numbers.Count;
+
+        // Find the largest number
+        int max = numbers[0];
+        foreach (int num in numbers)
+        {
+            if (num > max)
+            {
+                max = num;
+            }
+        }
+
+        // Show the results
+        Console.WriteLine("The sum is: " + sum);
+        Console.WriteLine("The average is: " + average);
+        Console.WriteLine("The largest number is: " + max);
     }
 }
