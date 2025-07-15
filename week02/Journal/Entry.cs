@@ -1,34 +1,33 @@
-namespace JournalApp
+using System;
+
+public class Entry
 {
-    public class Entry
+    public string Date    { get; }
+    public string Prompt  { get; }
+    public string Response{ get; }
+
+    // new entry created by the user
+    public Entry(string prompt, string response)
     {
-        private string _prompt;
-        private string _response;
-        private string _date;
+        Date     = DateTime.Now.ToString("yyyy-MM-dd");
+        Prompt   = prompt;
+        Response = response;
+    }
 
-        public Entry(string prompt, string response)
-        {
-            // Empty body for now
-        }
+    // entry recreated from a line in the file
+    public Entry(string line)
+    {
+        var parts = line.Split('|');
+        Date     = parts[0];
+        Prompt   = parts[1];
+        Response = parts[2];
+    }
 
-        public static Entry FromData(string date, string prompt, string response)
-        {
-            return new Entry(prompt, response);
-        }
+    public string ToFileLine() => $"{Date}|{Prompt}|{Response}";
 
-        public string FormatForDisplay()
-        {
-            return "";
-        }
-
-        public string Serialize()
-        {
-            return "";
-        }
-
-        public static Entry Deserialize(string line)
-        {
-            return new Entry("", "");
-        }
+    public void Display()
+    {
+        Console.WriteLine($"{Date} - Q: {Prompt}");
+        Console.WriteLine($"    A: {Response}\n");
     }
 }

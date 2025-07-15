@@ -1,27 +1,43 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 
-namespace JournalApp
+public class Journal
 {
-    public class Journal
+    private readonly List<Entry> _entries = new();
+
+    public void AddEntry(Entry entry) => _entries.Add(entry);
+
+    public void Display()
     {
-        public void Add(Entry entry)
+        if (_entries.Count == 0)
         {
-            // Empty body
+            Console.WriteLine("No entries yet.\n");
+            return;
         }
 
-        public void Display()
+        foreach (var entry in _entries)
+            entry.Display();
+    }
+
+    public void Save(string filename)
+    {
+        File.WriteAllLines(filename, _entries.ConvertAll(e => e.ToFileLine()));
+        Console.WriteLine("Journal saved!\n");
+    }
+
+    public void Load(string filename)
+    {
+        if (!File.Exists(filename))
         {
-            // Empty body
+            Console.WriteLine("File not found.\n");
+            return;
         }
 
-        public void Save(string filename)
-        {
-            // Empty body
-        }
+        _entries.Clear();
+        foreach (var line in File.ReadAllLines(filename))
+            _entries.Add(new Entry(line));
 
-        public void Load(string filename)
-        {
-            // Empty body
-        }
+        Console.WriteLine("Journal loaded!\n");
     }
 }
