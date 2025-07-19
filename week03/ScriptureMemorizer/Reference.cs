@@ -4,19 +4,30 @@ public class Reference
     private int _chapter;
     private int _verse;
     private int _endVerse;
+    private bool _hasRange;
 
     public Reference(string book, int chapter, int verse)
     {
-        // Empty for now
+        _book = book;
+        _chapter = chapter;
+        _verse = verse;
+        _hasRange = false;
     }
 
     public Reference(string book, int chapter, int verse, int endVerse)
     {
-        // Empty for now
+        _book = book;
+        _chapter = chapter;
+        _verse = verse;
+        _endVerse = endVerse;
+        _hasRange = true;
     }
 
     public string GetDisplayText()
     {
-        return ""; // Placeholder
+        if (_hasRange)
+            return $"{_book} {_chapter}:{_verse}-{_endVerse}";
+        else
+            return $"{_book} {_chapter}:{_verse}";
     }
 }

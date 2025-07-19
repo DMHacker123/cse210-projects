@@ -8,21 +8,48 @@ public class Scripture
 
     public Scripture(Reference reference, string text)
     {
-        // Empty for now
+        _reference = reference;
+        _words = new List<Word>();
+        string[] parts = text.Split(' ');
+        foreach (string part in parts)
+        {
+            _words.Add(new Word(part));
+        }
     }
 
-    public void HideRandomWords(int numberToHide)
+    public void HideSomeWords(int count)
     {
-        // Empty for now
+        Random rand = new Random();
+        int hidden = 0;
+
+        for (int i = 0; i < _words.Count && hidden < count; i++)
+        {
+            int index = rand.Next(_words.Count);
+            if (!_words[index].IsHidden())
+            {
+                _words[index].Hide();
+                hidden++;
+            }
+        }
     }
 
     public string GetDisplayText()
     {
-        return ""; // Placeholder
+        string result = _reference.GetDisplayText() + "\n";
+        foreach (Word word in _words)
+        {
+            result += word.GetDisplayText() + " ";
+        }
+        return result.Trim();
     }
 
-    public bool IsCompletelyHidden()
+    public bool AreAllWordsHidden()
     {
-        return false; // Placeholder
+        foreach (Word word in _words)
+        {
+            if (!word.IsHidden())
+                return false;
+        }
+        return true;
     }
 }
