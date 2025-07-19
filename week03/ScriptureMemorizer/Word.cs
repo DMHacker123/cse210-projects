@@ -18,8 +18,17 @@ public class Word
         return _hidden;
     }
 
-    public string GetDisplayText()
+public string GetDisplayText()
+{
+    if (_hidden)
     {
-        return _hidden ? "_____" : _text;
+        // Return underscores with spaces: "_ _ _ _" for "Lord"
+        return string.Join(" ", new string('_', _text.Length).ToCharArray());
     }
+    else
+    {
+        return _text;
+    }
+}
+
 }
