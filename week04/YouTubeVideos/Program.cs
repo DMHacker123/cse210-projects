@@ -19,26 +19,37 @@ class Program
 
     static void Main()
     {
-        // Create video 1
+        // Video 1
         Video v1 = new Video();
         v1.title = "Learn C# Basics";
         v1.author = "CodeTutor";
         v1.length = 300;
         v1.comments.Add(new Comment { name = "Alice", text = "Very helpful!" });
         v1.comments.Add(new Comment { name = "Bob", text = "Thanks for the tips!" });
+        v1.comments.Add(new Comment { name = "Cara", text = "Easy to follow!" });
 
-        // Create video 2
+        // Video 2
         Video v2 = new Video();
         v2.title = "Top 5 Gadgets 2025";
         v2.author = "TechZone";
         v2.length = 420;
-        v2.comments.Add(new Comment { name = "Cara", text = "Love the drone!" });
         v2.comments.Add(new Comment { name = "Dan", text = "Cool picks." });
+        v2.comments.Add(new Comment { name = "Eva", text = "Love the drone!" });
+        v2.comments.Add(new Comment { name = "Finn", text = "Great editing!" });
 
-        // Create video list
-        List<Video> videos = new List<Video> { v1, v2 };
+        // Video 3
+        Video v3 = new Video();
+        v3.title = "Travel Vlog: Italy";
+        v3.author = "WanderLust";
+        v3.length = 500;
+        v3.comments.Add(new Comment { name = "Grace", text = "Beautiful views!" });
+        v3.comments.Add(new Comment { name = "Henry", text = "I want to go now!" });
+        v3.comments.Add(new Comment { name = "Isla", text = "This is so relaxing." });
 
-        // Display info
+        // Add videos to list
+        List<Video> videos = new List<Video> { v1, v2, v3 };
+
+        // Show video info
         foreach (Video v in videos)
         {
             Console.WriteLine($"Title: {v.title}");
