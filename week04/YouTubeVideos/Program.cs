@@ -1,66 +1,107 @@
 using System;
 using System.Collections.Generic;
 
+//
+// CLASS: Comment
+// RESPONSIBILITY: Store the name and text of a comment.
+//
+class Comment
+{
+    // --- Attributes (Member Variables) ---
+    public string Name;   // Commenter's name
+    public string Text;   // Comment text
+
+    // --- Constructor ---
+    public Comment(string name, string text)
+    {
+        Name = name;
+        Text = text;
+    }
+}
+
+//
+// CLASS: Video
+// RESPONSIBILITY: Store video info and a list of comments.
+//
+class Video
+{
+    // --- Attributes (Member Variables) ---
+    public string Title;             // Video title
+    public string Author;            // Author/uploader
+    public int LengthInSeconds;      // Length in seconds
+    private List<Comment> comments;  // List of Comment objects
+
+    // --- Constructor ---
+    public Video(string title, string author, int length)
+    {
+        Title = title;
+        Author = author;
+        LengthInSeconds = length;
+        comments = new List<Comment>();
+    }
+
+    // --- Behavior: Add a new comment ---
+    public void AddComment(string name, string text)
+    {
+        comments.Add(new Comment(name, text));
+    }
+
+    // --- Behavior: Get number of comments ---
+    public int GetCommentCount()
+    {
+        return comments.Count;
+    }
+
+    // --- Behavior: Get the list of comments ---
+    public List<Comment> GetComments()
+    {
+        return comments;
+    }
+}
+
+//
+// CLASS: Program
+// RESPONSIBILITY: Run the app and demonstrate object interactions.
+//
 class Program
 {
-    class Comment
-    {
-        public string name;
-        public string text;
-    }
-
-    class Video
-    {
-        public string title;
-        public string author;
-        public int length;
-        public List<Comment> comments = new List<Comment>();
-    }
-
     static void Main()
     {
-        // Video 1
-        Video v1 = new Video();
-        v1.title = "Learn C# Basics";
-        v1.author = "CodeTutor";
-        v1.length = 300;
-        v1.comments.Add(new Comment { name = "Alice", text = "Very helpful!" });
-        v1.comments.Add(new Comment { name = "Bob", text = "Thanks for the tips!" });
-        v1.comments.Add(new Comment { name = "Cara", text = "Easy to follow!" });
+        // --- Create 3 Video objects ---
+        Video v1 = new Video("Learn C# Basics", "CodeTutor", 300);
+        Video v2 = new Video("Top 5 Gadgets 2025", "TechZone", 420);
+        Video v3 = new Video("Travel Vlog: Italy", "WanderLust", 500);
 
-        // Video 2
-        Video v2 = new Video();
-        v2.title = "Top 5 Gadgets 2025";
-        v2.author = "TechZone";
-        v2.length = 420;
-        v2.comments.Add(new Comment { name = "Dan", text = "Cool picks." });
-        v2.comments.Add(new Comment { name = "Eva", text = "Love the drone!" });
-        v2.comments.Add(new Comment { name = "Finn", text = "Great editing!" });
+        // --- Add 3 Comments per Video ---
+        v1.AddComment("Alice", "Very helpful!");
+        v1.AddComment("Bob", "Thanks for the tips!");
+        v1.AddComment("Cara", "Easy to follow!");
 
-        // Video 3
-        Video v3 = new Video();
-        v3.title = "Travel Vlog: Italy";
-        v3.author = "WanderLust";
-        v3.length = 500;
-        v3.comments.Add(new Comment { name = "Grace", text = "Beautiful views!" });
-        v3.comments.Add(new Comment { name = "Henry", text = "I want to go now!" });
-        v3.comments.Add(new Comment { name = "Isla", text = "This is so relaxing." });
+        v2.AddComment("Dan", "Cool picks.");
+        v2.AddComment("Eva", "Love the drone!");
+        v2.AddComment("Finn", "Great editing!");
 
-        // Add videos to list
+        v3.AddComment("Grace", "Beautiful views!");
+        v3.AddComment("Henry", "I want to go now!");
+        v3.AddComment("Isla", "This is so relaxing.");
+
+        // --- Store videos in a list ---
         List<Video> videos = new List<Video> { v1, v2, v3 };
 
-        // Show video info
-        foreach (Video v in videos)
+        // --- Display video info and comments ---
+        foreach (Video video in videos)
         {
-            Console.WriteLine($"Title: {v.title}");
-            Console.WriteLine($"Author: {v.author}");
-            Console.WriteLine($"Length: {v.length} seconds");
-            Console.WriteLine($"Comments: {v.comments.Count}");
-            foreach (Comment c in v.comments)
+            Console.WriteLine($"Title: {video.Title}");
+            Console.WriteLine($"Author: {video.Author}");
+            Console.WriteLine($"Length: {video.LengthInSeconds} seconds");
+            Console.WriteLine($"Number of Comments: {video.GetCommentCount()}");
+
+            foreach (Comment comment in video.GetComments())
             {
-                Console.WriteLine($"- {c.name}: {c.text}");
+                Console.WriteLine($"- {comment.Name}: {comment.Text}");
             }
-            Console.WriteLine();
+
+            Console.WriteLine(new string('-', 40));
         }
     }
 }
