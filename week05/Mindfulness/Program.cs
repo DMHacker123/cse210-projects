@@ -1,55 +1,55 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading;
 
 class Program
 {
     static void Main(string[] args)
     {
-        string choice = "";
-
-        while (choice != "4")
+        while (true)
         {
             Console.Clear();
             Console.WriteLine("Mindfulness Program");
-            Console.WriteLine("-------------------");
-            Console.WriteLine("1. Start Breathing Activity");
-            Console.WriteLine("2. Start Listing Activity");
-            Console.WriteLine("3. Start Reflecting Activity");
+            Console.WriteLine("1. Breathing Activity");
+            Console.WriteLine("2. Reflection Activity");
+            Console.WriteLine("3. Listing Activity");
             Console.WriteLine("4. Quit");
-            Console.Write("Choose an option: ");
-            choice = Console.ReadLine();
+            Console.WriteLine("5. View Activity Log");
+            Console.Write("Select an option: ");
+
+            string choice = Console.ReadLine();
+            Activity activity = null;
 
             switch (choice)
             {
                 case "1":
-                    BreathingActivity breathing = new BreathingActivity();
-                    breathing.DisplayStartingMessage();
-                    breathing.Run();
-                    breathing.DisplayEndingMessage();
+                    activity = new BreathingActivity();
                     break;
-
                 case "2":
-                    ListingActivity listing = new ListingActivity();
-                    listing.DisplayStartingMessage();
-                    listing.Run();
-                    listing.DisplayEndingMessage();
+                    activity = new ReflectionActivity();
                     break;
-
                 case "3":
-                    ReflectingActivity reflecting = new ReflectingActivity();
-                    reflecting.DisplayStartingMessage();
-                    reflecting.Run();
-                    reflecting.DisplayEndingMessage();
+                    activity = new ListingActivity();
                     break;
-
                 case "4":
-                    Console.WriteLine("Goodbye!");
-                    break;
-
-                default:
-                    Console.WriteLine("Invalid choice. Press Enter to try again.");
+                    return;
+                case "5":
+                    Console.Clear();
+                    if (File.Exists("Data/log.txt"))
+                        Console.WriteLine(File.ReadAllText("Data/log.txt"));
+                    else
+                        Console.WriteLine("No activity has been logged yet.");
+                    Console.WriteLine("\nPress Enter to return to the menu.");
                     Console.ReadLine();
-                    break;
+                    continue;
+                default:
+                    Console.WriteLine("Invalid choice.");
+                    Thread.Sleep(1000);
+                    continue;
             }
+
+            activity.RunActivity();
         }
     }
 }
